@@ -1,7 +1,6 @@
 // basic functions for context
 import {
     createContext,
-    useState,
     useReducer,
     useContext,
     useEffect,

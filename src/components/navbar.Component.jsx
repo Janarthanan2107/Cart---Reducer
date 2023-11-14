@@ -3,8 +3,7 @@ import { BsBagHeart } from "react-icons/bs";
 import { useCartContext } from "../context/cart.Context";
 
 const Navbar = () => {
-
-  const {totalAmount} = useCartContext()
+  const { totalAmount } = useCartContext();
 
   return (
     <div>

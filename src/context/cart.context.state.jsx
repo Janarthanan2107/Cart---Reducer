@@ -24,7 +24,7 @@ const CartContextProvider = ({ children }) => {
       )
     );
   };
-  
+
   const decrement = (id) => {
     setCartData(
       cartData.map((item) =>
