@@ -11,6 +11,11 @@ const CartContextProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
+  //   clear all
+  const clearCart = () => {
+    setCartData([]);
+  };
+
   // quantity
   const itemQuantity = (id, newAmount) => {
     const quantity = cartData.map((item) =>
@@ -48,6 +53,7 @@ const CartContextProvider = ({ children }) => {
     totalAmount,
     remove,
     itemQuantity,
+    clearCart
   };
 
   return (
