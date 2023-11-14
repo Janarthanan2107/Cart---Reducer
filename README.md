@@ -4,7 +4,7 @@ A brief description of your React application.
 
 ## Live Demo
 
-You can access a live demo of this project [here](https://heartfelt-hamster-96b7a5.netlify.app/).
+You can access a live demo of this project [here](https://loquacious-taiyaki-7342de.netlify.app/).
 
 ## Installation
 
