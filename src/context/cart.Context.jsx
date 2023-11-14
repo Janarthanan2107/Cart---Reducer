@@ -1,71 +1,77 @@
 // basic functions for context
-import { createContext, useState, useContext, useEffect } from "react";
-import { cartListItems } from "../constants";
-
-// create the context
-const CartContext = createContext();
-
-// create the context provider
-const CartContextProvider = ({ children }) => {
-  const [cartData, setCartData] = useState(cartListItems);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  //   clear all
-  const clearCart = () => {
-    setCartData([]);
+import {
+    createContext,
+    useState,
+    useReducer,
+    useContext,
+    useEffect,
+  } from "react";
+  import { cartListItems } from "../constants";
+  import { cartReducer } from "../reducer/cart.Reducer";
+  
+  // create the context
+  const CartContext = createContext();
+  
+  // initial values
+  const initialValues = {
+    cartData: cartListItems,
+    totalAmount: 0,
+    totalPrice: 0,
   };
-
-  // quantity
-  const itemQuantity = (id, newAmount) => {
-    const quantity = cartData.map((item) =>
-      item.id === id ? { ...item, amount: newAmount } : item
+  
+  // create the context provider
+  const CartContextProvider = ({ children }) => {
+    const [state, dispatch] = useReducer(cartReducer, initialValues);
+  
+    // clear all
+    const clearCart = () => {
+      dispatch({ type: "CLEAR_CART" });
+    };
+  
+    // quantity
+    const increment = (id) => {
+      dispatch({ type: "INCREMENT", payload: id });
+    };
+  
+    const decrement = (id) => {
+      dispatch({ type: "DECREMENT", payload: id });
+    };
+  
+    // remove the item from list
+    const remove = (id) => {
+      dispatch({ type: "REMOVE_CART_ITEM", payload: id });
+    };
+  
+    //   calculate total
+    const calculateTotal = () => {
+      dispatch({ type: "CALCULATE_TOTALS" });
+    };
+  
+    // update the total amount every time card data updates
+    useEffect(() => {
+      calculateTotal();
+    }, [state.cartData]);
+  
+    //   assign the values
+    const values = {
+      ...state,
+      remove,
+      increment,
+      decrement,
+      clearCart,
+    };
+  
+    return (
+      // pass the values
+      <CartContext.Provider value={values}>{children}</CartContext.Provider>
     );
-    setCartData(quantity);
   };
-
-  // remove the item from list
-  const remove = (id) => {
-    const remaining = cartData.filter((item) => id !== item.id);
-    setCartData(remaining);
+  
+  // custom hooks
+  const useCartContext = () => {
+    // note: custom hook is a function so we need to return the useContext
+    return useContext(CartContext);
   };
-
-  //   calculate total
-  const calculateTotal = () => {
-    setTotalAmount(cartData.reduce((acc, item) => acc + item.amount, 0));
-
-    setTotalPrice(
-      cartData
-        .reduce((acc, item) => acc + item.price * item.amount, 0)
-        .toFixed(2)
-    );
-  };
-
-  // update the total amount every time card data updates
-  useEffect(() => {
-    calculateTotal();
-  }, [cartData]);
-
-  //   assign the values
-  const values = {
-    cartData,
-    totalPrice,
-    totalAmount,
-    remove,
-    itemQuantity,
-    clearCart
-  };
-
-  return (
-    // pass the values
-    <CartContext.Provider value={values}>{children}</CartContext.Provider>
-  );
-};
-
-// custom hooks
-const useCartContext = () => {
-  // note: custom hook is a function so we need to return the useContext
-  return useContext(CartContext);
-};
-
-export { CartContextProvider, useCartContext };
+  
+  export { CartContextProvider, useCartContext };
+  

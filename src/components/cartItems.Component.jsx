@@ -3,7 +3,7 @@ import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { useCartContext } from "../context/cart.Context";
 
 const CartItems = () => {
-  const { cartData, itemQuantity, remove } = useCartContext();
+  const { cartData, increment, decrement, remove } = useCartContext();
   return (
     <div>
       {cartData.map((item) => {
@@ -33,14 +33,12 @@ const CartItems = () => {
               <span className="flex flex-col items-center">
                 <IoIosArrowUp
                   className="cursor-pointer hover:scale-150 text-gray-400"
-                  onClick={() => itemQuantity(id, amount + 1)}
+                  onClick={() => increment(id)}
                 />
                 {amount}
                 <IoIosArrowDown
                   className="cursor-pointer hover:scale-150 text-gray-400"
-                  onClick={() =>
-                    amount <= 1 ? remove(id) : itemQuantity(id, amount - 1)
-                  }
+                  onClick={() => decrement(id)}
                 />
               </span>
             </div>
