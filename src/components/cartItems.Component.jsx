@@ -1,8 +1,11 @@
 // icons
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+
+// use context
 import { useCartContext } from "../context/cart.Context";
 
 const CartItems = () => {
+  // destructure the data from context
   const { cartData, increment, decrement, remove } = useCartContext();
   return (
     <div>
