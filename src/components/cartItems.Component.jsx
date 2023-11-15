@@ -34,6 +34,7 @@ const CartItems = () => {
                   </p>
                 </span>
               </span>
+              {/* action block */}
               <span className="flex flex-col items-center">
                 <IoIosArrowUp
                   className="cursor-pointer hover:scale-150 text-gray-400"
