@@ -28,10 +28,12 @@ import {
     };
   
     // quantity
+      // increment
     const increment = (id) => {
       dispatch({ type: "INCREMENT", payload: id });
     };
-  
+
+      // decrement
     const decrement = (id) => {
       dispatch({ type: "DECREMENT", payload: id });
     };
