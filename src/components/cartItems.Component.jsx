@@ -10,6 +10,7 @@ const CartItems = () => {
   return (
     <div>
       {cartData.map((item) => {
+        // destructure the data from cartdata
         const { id, title, img, price, amount } = item;
         return (
           <div key={id} className="p-5 border-b border-gray-400">
