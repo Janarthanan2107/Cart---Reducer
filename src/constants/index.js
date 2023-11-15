@@ -1,3 +1,4 @@
+// cart items
 const cartListItems = [
     {
         id: 'rec1JZlfCIBOPdcT2',
